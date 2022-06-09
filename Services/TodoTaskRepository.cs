@@ -26,6 +26,7 @@ public class TodoTaskRepository : ITodoTaskRepository
     {
         var newEntry = DtoToEntityMapper.MapDtoToEntity(taskDto);
         _todoTaskContext.TodoTasks.Add(newEntry);
+        _todoTaskContext.SaveChanges();
         return newEntry;
     }
 

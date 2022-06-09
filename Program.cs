@@ -1,17 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Contexts;
+using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 string connString = builder.Configuration.GetConnectionString("Database");
+builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 builder.Services.AddDbContext<TodoTaskContext>(opt => opt.UseSqlServer(connString));
+// scoped5 service goes here
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// scoped service goes here
 
 var app = builder.Build();
 

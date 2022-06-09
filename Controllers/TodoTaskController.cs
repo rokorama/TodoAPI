@@ -1,17 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using TodoApi.Contexts;
 using TodoApi.Models;
 using TodoApi.Services;
 
 namespace TodoApi.Controllers;
 
 [ApiController]
-[Route("controller")]
+[Route("todo/api")]
 public class TodoTaskController : ControllerBase
 {
-    private readonly TodoTaskRepository _todoTaskRepository;
+    private readonly ITodoTaskRepository _todoTaskRepository;
 
-    public TodoTaskController(TodoTaskRepository todoTaskRepository)
+    public TodoTaskController(ITodoTaskRepository todoTaskRepository)
     {
         _todoTaskRepository = todoTaskRepository;
     }
