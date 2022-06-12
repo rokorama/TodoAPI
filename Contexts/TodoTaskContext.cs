@@ -12,4 +12,5 @@ public class TodoTaskContext : DbContext
     }
 
     public DbSet<TodoTask> TodoTasks { get; set; }
+    public DbSet<User> Users { get; set; }
 }

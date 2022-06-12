@@ -25,4 +25,17 @@ static public class DtoToEntityMapper
 
         return result;
     }
+
+    static public User MapDtoToEntity(UserDto userDto)
+    {
+        var result = new User
+        {
+            Id = Guid.NewGuid(),
+            FirstName = userDto.FirstName,
+            LastName = userDto.LastName,
+            Email = userDto.Email,
+        };
+
+        return result;
+    }
 }
