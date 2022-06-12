@@ -17,7 +17,7 @@ public class TodoTaskController : ControllerBase
         _todoTaskRepository = todoTaskRepository;
         _logger = logger;
     }
-    
+
     [HttpGet("task")]
     public ActionResult<IEnumerable<TodoTask>> GetTask()
     {

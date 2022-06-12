@@ -67,7 +67,7 @@ function saveEntry() {
     let entryEndDate = document.getElementById('newEntryEndDate').value;
     let entryUserId = combinedNames
 
-    fetch('https://testapi.io/api/rokorama/resource/toDoTasks', {
+    fetch('https://localhost:7145/api/task', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -96,7 +96,7 @@ function saveEntry() {
 function getEntries() {
     activeEntryContainer.innerHTML = ''
     completedEntryContainer.innerHTML = ''
-    fetch('https://testapi.io/api/rokorama/resource/toDoTasks')
+    fetch('https://localhost:7145/api/task')
         .then((res) => {
             if (res.ok) {
                 return res.json();
@@ -260,7 +260,7 @@ function render(entries) {
 }
 
 async function editEntry(entryId, entry) {
-    const edit = await fetch(`https://testapi.io/api/rokorama/resource/toDoTasks/${entryId}`, {
+    const edit = await fetch(`https://localhost:7145/api/task/${entryId}`, {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json'
@@ -280,7 +280,7 @@ async function editEntry(entryId, entry) {
 }
 
 async function toggleCompletedStatus(entryId, entry) {
-    const edit = await fetch(`https://testapi.io/api/rokorama/resource/toDoTasks/${entryId}`, {
+    const edit = await fetch(`https://localhost:7145/api/task/${entryId}`, {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json'
@@ -308,7 +308,7 @@ async function toggleCompletedStatus(entryId, entry) {
 }
 
 async function deleteEntry(entryId) {
-    const del = await fetch(`https://testapi.io/api/rokorama/resource/toDoTasks/${entryId}`, {
+    const del = await fetch(`https://localhost:7145/api/task/${entryId}`, {
         method: 'DELETE'
     })
 
