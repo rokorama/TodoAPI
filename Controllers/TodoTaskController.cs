@@ -5,7 +5,7 @@ using TodoApi.Services;
 namespace TodoApi.Controllers;
 
 [ApiController]
-[Route("todo/api")]
+[Route("api")]
 public class TodoTaskController : ControllerBase
 {
     private readonly ITodoTaskRepository _todoTaskRepository;
@@ -15,7 +15,8 @@ public class TodoTaskController : ControllerBase
         _todoTaskRepository = todoTaskRepository;
     }
 
-    [HttpGet]
+
+    [HttpGet("task")]
     public ActionResult<IEnumerable<TodoTask>> GetTask()
     {
         var result = _todoTaskRepository.GetTask();
@@ -26,8 +27,8 @@ public class TodoTaskController : ControllerBase
         return Ok(result);
     }
     
-    [HttpGet("id")]
-    public ActionResult<TodoTask> GetTask([FromQuery] Guid id)
+    [HttpGet("task/{id}")]
+    public ActionResult<TodoTask> GetTask([FromRoute] Guid id)
     {
         var result = _todoTaskRepository.GetTask(id);
         if (result == null)
@@ -37,8 +38,8 @@ public class TodoTaskController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
-    public ActionResult<TodoTask> PostTask(TodoTaskDto taskDto)
+    [HttpPost("task")]
+    public ActionResult<TodoTask> PostTask([FromBody] TodoTaskDto taskDto)
     {
         var result = _todoTaskRepository.PostTask(taskDto);
         if (result == null)
@@ -48,8 +49,8 @@ public class TodoTaskController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("id")]
-    public ActionResult<TodoTask> PutTask(TodoTaskDto taskDto, Guid id)
+    [HttpPut("task/{id}")]
+    public ActionResult<TodoTask> PutTask([FromBody] TodoTaskDto taskDto, [FromRoute] Guid id)
     {
         var result = _todoTaskRepository.PutTask(id, taskDto);
         if (result == null)
@@ -59,10 +60,8 @@ public class TodoTaskController : ControllerBase
         return Ok(result);
     }
 
-
-
-    [HttpDelete("id")]
-    public ActionResult<TodoTask> DeleteTask([FromQuery] Guid id)
+    [HttpDelete("task/{id}")]
+    public ActionResult<TodoTask> DeleteTask([FromRoute] Guid id)
     {
         var result = _todoTaskRepository.DeleteTask(id);
         if (result == null)

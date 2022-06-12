@@ -34,7 +34,7 @@ public class TodoTaskRepository : ITodoTaskRepository
     {
         var updatedEntry = DtoToEntityMapper.MapDtoToEntity(taskDto, id);
         var databaseEntry = _todoTaskContext.TodoTasks.Find(id);
-        databaseEntry = updatedEntry;
+        _todoTaskContext.Entry(databaseEntry).CurrentValues.SetValues(updatedEntry);
         _todoTaskContext.SaveChanges();
         return updatedEntry;
     }
