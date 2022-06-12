@@ -10,12 +10,14 @@ public class TodoTaskController : ControllerBase
 {
     private readonly ITodoTaskRepository _todoTaskRepository;
 
-    public TodoTaskController(ITodoTaskRepository todoTaskRepository)
+    private readonly ILogger<TodoTaskController> _logger;
+
+    public TodoTaskController(ITodoTaskRepository todoTaskRepository, ILogger<TodoTaskController> logger)
     {
         _todoTaskRepository = todoTaskRepository;
+        _logger = logger;
     }
-
-
+    
     [HttpGet("task")]
     public ActionResult<IEnumerable<TodoTask>> GetTask()
     {
