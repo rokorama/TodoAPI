@@ -5,6 +5,6 @@ namespace TodoApi.Services;
 
 public interface IUserRepository
 {
-    public User PostTask(UserDto userDto);
-    public User GetTask(Guid id);
+    public User PostUser(UserDto userDto);
+    public User GetUser(Guid id);
 }

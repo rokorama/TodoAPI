@@ -12,12 +12,12 @@ public class UserRepository : IUserRepository
         _todoTaskContext = todoTaskContext;
     }
 
-    public User GetTask(Guid id)
+    public User GetUser(Guid id)
     {
         return _todoTaskContext.Users.Find(id);
     }
 
-    public User PostTask(UserDto userDto)
+    public User PostUser(UserDto userDto)
     {
         var newEntry = DtoToEntityMapper.MapDtoToEntity(userDto);
         _todoTaskContext.Users.Add(newEntry);
