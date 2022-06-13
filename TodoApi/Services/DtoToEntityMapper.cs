@@ -8,21 +8,13 @@ static public class DtoToEntityMapper
     {
         var result = new TodoTask
         {
+            Id = taskId,
             Title = taskDto.Title,
             Content = taskDto.Content,
             EndDate = taskDto.EndDate,
             Completed = taskDto.Completed,
             UserId = taskDto.UserId
         };
-
-        // if (taskId == default)
-        // {
-        //     result.Id = Guid.NewGuid();
-        // }
-        // else
-        // {
-        //     result.Id = taskId;
-        // }
 
         return result;
     }
@@ -31,7 +23,6 @@ static public class DtoToEntityMapper
     {
         var result = new User
         {
-            // Id = Guid.NewGuid(),
             FirstName = userDto.FirstName,
             LastName = userDto.LastName,
             Email = userDto.Email,
