@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="container">
 
         <form action="get" class="form" id="login">
-            <h1 class="form_title">Prisijungimas</h1>
+            <h1 class="form_title">Login</h1>
             <div class="form_message form_message-error"></div>
             <div class="form_input-group">
                 <input type="text" id="UserName" class="form_input" autofocus placeholder="Vardas">
@@ -22,14 +22,14 @@
                 <input type="text" id="UserLastName" class="form_input" autofocus placeholder="Pavardė">
                 <div class="form_input-error-message"></div>
             </div>
-            <button class="form_button" id="submitLogin" type="submit">Tęsti</button>
+            <button class="form_button" id="submitLogin" type="submit">Continue</button>
             <p class="form_text">
-                <a class="form_link" href="./" id="linkCreateAccount">Naujas vartotojas? Kurti vartotoją</a>
+                <a class="form_link" href="./" id="linkCreateAccount">New user? Sign up</a>
             </p>
         </form>
 
         <form action="get" class="form form-hidden" id="createAccount">
-            <h1 class="form_title">Paskyros kūrimas</h1>
+            <h1 class="form_title">Signup</h1>
             <div class="form_message form_message-error"></div>
             <div class="form_input-group">
                 <input type="text" id="signUpUserName" class="form_input" autofocus placeholder="Vardas">
@@ -43,10 +43,10 @@
                 <input type="text" id="signUpUserEmail"class="form_input" autofocus placeholder="Elektroninis paštas">
                 <div class="form_input-error-message"></div>
             </div>
-            <button class="form_button" id="submitCreate" type="submit">Tęsti</button>
+            <button class="form_button" id="submitCreate" type="submit">Continue</button>
 
             <p class="form_text">
-                <a class="form_link" href="./" id="linkLogin">Esantis vartotojas? Prisijunkite</a>
+                <a class="form_link" href="./" id="linkLogin">Already a user? Log in</a>
             </p>
         </form>
 

@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", event => {
       event.preventDefault();
 
-      setFormMessage(loginForm, "error", "Neteisingas vardas/pavardė")
+      setFormMessage(loginForm, "error", "Incorrect firstName information")
   });
 //#endregion
 
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".form_input").forEach(inputElement => {
       inputElement.addEventListener("blur", event => {
           if (event.target.id === "signUpUserName" && event.target.value.length > 0 && event.target.value.length < 3) {
-              setInputError(inputElement, "Lauke turi būti bent 3 simboliai!");
+              setInputError(inputElement, "Value must be at least 3 characters long!");
           }
       });
       inputElement.addEventListener("input", event => {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".form_input").forEach(inputElement => {
     inputElement.addEventListener("blur", event => {
         if (event.target.id === "signUpUserLastName" && event.target.value.length > 0 && event.target.value.length < 3) {
-            setInputError(inputElement, "Lauke turi būti bent 3 simboliai!");
+            setInputError(inputElement, "Value must be at least 3 characters long!");
         }
     });
     inputElement.addEventListener("input", event => {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".form_input").forEach(inputElement => {
       inputElement.addEventListener("blur", event => {
           if (event.target.id === "signUpUserEmail" && CheckForEtaSymbol_ReturnBool(event.target.value)) {
-              setInputError(inputElement, "Lauke turi būti @ simbolis!");
+              setInputError(inputElement, "Value must contain an @ character!");
           }
       });
       inputElement.addEventListener("input", event => {
@@ -102,14 +102,14 @@ const submitCreate = document.querySelector("#submitCreate");
 submitCreate.addEventListener("click", event => {
 
 event.preventDefault();
-let name = document.querySelector("#signUpUserName");
+let firstName = document.querySelector("#signUpUserName");
 let lastName = document.querySelector("#signUpUserLastName");
 let email = document.querySelector("#signUpUserEmail")
 
-checkLenght(name, lastName)
+checkLenght(firstName, lastName)
 checkForEtaSymbol(email)
 
-MiniAsyncHelperReg(name, lastName, email);
+MiniAsyncHelperReg(firstName, lastName, email);
 })
 
 //#endregion
@@ -118,12 +118,12 @@ MiniAsyncHelperReg(name, lastName, email);
 /**
  * This method uses simple if logic to check for input lenght and reload the page if it
  * does not meet required ammount of symbols (hardcoded is 3)
- * @param {string} name 
+ * @param {string} firstName 
  * @param {string} lastName 
  */
-function checkLenght(name, lastName){
-  if(name.value.length<3){
-    alert(`Vartotojo vardas turi būti bent 3 raidžių ilgio; įvestis: "${name.value}" yra tik ${name.value.length} simbolio(-ų)  ilgio!`);
+function checkLenght(firstName, lastName){
+  if(firstName.value.length<3){
+    alert(`Vartotojo vardas turi būti bent 3 raidžių ilgio; įvestis: "${firstName.value}" yra tik ${firstName.value.length} simbolio(-ų)  ilgio!`);
     location.reload(true)
   }
   if(lastName.value.length<3){
@@ -195,11 +195,11 @@ function CheckForEtaSymbol_ReturnBool(email){
 *                                     not duplicated;
 *                                 (5) call POST function and save form values
 *                                     in a DataBase
-* @param {string} name 
+* @param {string} firstName 
 * @param {string} lastName 
 * @param {string} email 
 */
-async function MiniAsyncHelperReg(name, lastName, email) {
+async function MiniAsyncHelperReg(firstName, lastName, email) {
 
   let users = [];
 
@@ -214,20 +214,20 @@ async function MiniAsyncHelperReg(name, lastName, email) {
   console.log("👀 CHECK 3 => Bool_result:", localSessionStorage);
 
   if(localSessionStorage == 'false'){
-    PostData(name.value, lastName.value, email.value);
+    PostData(firstName.value, lastName.value, email.value);
 
     const loginForm = document.querySelector('#login')
     const createAccountForm = document.querySelector('#createAccount')
 
-    alert("✅ Vartotojas sukurtas!")
+    alert("✅ User created!")
 
-    setFormMessage(createAccountForm, "success", "Vartotojas sukurtas!")
+    setFormMessage(createAccountForm, "success", "User created!")
 
     loginForm.classList.remove("form-hidden");
     createAccountForm.classList.add("form-hidden");
 
   } else {
-    alert("⚠️ Toks vartotojas jau egzistuoja!");
+    alert("⚠️ User already exists!");
   }
 
 }
@@ -244,13 +244,13 @@ const submitLogin = document.querySelector("#submitLogin");
 submitLogin.addEventListener("click", event => {
 
 event.preventDefault();
-let name = document.querySelector("#UserName");
+let firstName = document.querySelector("#UserName");
 let lastName = document.querySelector("#UserLastName");
 
-console.log(name, lastName)
-console.log(name.value, lastName.value)
+console.log(firstName, lastName)
+console.log(firstName.value, lastName.value)
 
-MiniAsyncHelper_Log(name, lastName)
+MiniAsyncHelper_Log(firstName, lastName)
 
 })
 
@@ -267,16 +267,16 @@ MiniAsyncHelper_Log(name, lastName)
 *                                      in (2) fetched values
 *                                  (5) if yes: redirect to todo.html;
 *                                      if no: alert user
-* @param {string} name 
+* @param {string} firstName 
 * @param {string} lastName 
 */
-async function MiniAsyncHelper_Log(name, lastName) {
+async function MiniAsyncHelper_Log(firstName, lastName) {
 
 let users = [];
 
 users = await AsyncFetch();
 
-DataCheck_By_NameLastName(users.data, name, lastName)
+DataCheck_By_NameLastName(users.data, firstName, lastName)
 
 const localSessionStorage = sessionStorage.getItem('bool2' && 'bool3')
 
@@ -287,7 +287,7 @@ if(localSessionStorage == 'true'){
   
   window.location.href = "../todo/todo.html"
 
-  console.log('Perduodamas', typeof localStorage.getItem('name'))
+  console.log('Perduodamas', typeof localStorage.getItem('firstName'))
   console.log('Perduodamas', typeof localStorage.getItem('lastName'))
 } else {
   alert("⚠️ Vartotojas NERASTAS");
@@ -302,18 +302,18 @@ if(localSessionStorage == 'true'){
 /**
 * Function takes in three strings and using POST method
 * saves these string values in a database
-* @param {string} name 
+* @param {string} firstName 
 * @param {string} lastName 
 * @param {string} email 
 */
-function PostData(name, lastName, email){
-fetch('https://testapi.io/api/SurkusAPI/resource/Users', {
+function PostData(firstName, lastName, email){
+fetch('https://localhost:7145/api/user', {
 method: 'POST',
 headers: {
   'Content-type': 'application/json'
 },
   body: JSON.stringify({
-  Name: `${name}`,
+  FirstName: `${firstName}`,
   LastName: `${lastName}`,
   Email: `${email}`,
 })
@@ -369,18 +369,18 @@ console.log("👀 CHECK 1 => IF_result:", typeof sessionStorage.getItem('bool'),
 
 //#endregion
 
-//#region HELPER_DATACHECK (by name and lastname)
+//#region HELPER_DATACHECK (by firstName and lastname)
 /**
 * THis function checks if there are corresponding values
 * to the ones entered in login form input fields using.include() method;
 * if yes: session storage keys 'bool2' and 'bool3' are set to true;
 * Aforementioned keys are reset to false every time function are called
 * @param {JS.objects array} data 
-* @param {string} name 
+* @param {string} firstName 
 * @param {string} lastName 
 * @returns 
 */
-function DataCheck_By_NameLastName(data, name, lastName){
+function DataCheck_By_NameLastName(data, firstName, lastName){
 
 sessionStorage.setItem('bool2', 'false');
 sessionStorage.setItem('bool3', 'false');
@@ -397,14 +397,14 @@ data.forEach(element => {
 
 console.log('Vardų array:', tempArrayNames)
 console.log('Pavardžių array:', tempArrayLastNames)
-console.log('Value iš formos: ', typeof name.value, name.value, 'ir', typeof lastName.value, lastName.value)
+console.log('Value iš formos: ', typeof firstName.value, firstName.value, 'ir', typeof lastName.value, lastName.value)
 
-sessionStorage.setItem('bool2', `${tempArrayNames.includes(name.value)}`)
+sessionStorage.setItem('bool2', `${tempArrayNames.includes(firstName.value)}`)
 sessionStorage.setItem('bool3', `${tempArrayLastNames.includes(lastName.value)}`)
 
 console.log("👀 CHECK 1 => IF_result:", typeof sessionStorage.getItem('bool2'), sessionStorage.getItem('bool2'))
 
-PassData(name, lastName)
+PassData(firstName, lastName)
 
 //return null;  // just to make sure it is executed at the right time
 }
@@ -413,14 +413,14 @@ PassData(name, lastName)
 //#region HELPER_PASSDATA
 /**
 * This functions main purpose is to set correct values to
-* keys 'name' and 'lastName';
+* keys 'firstName' and 'lastName';
 * Every time this function is called it clear()'s sessionStorage
-* @param {string} name 
+* @param {string} firstName 
 * @param {string} lastName 
 */
-function PassData(name, lastName){
+function PassData(firstName, lastName){
   localStorage.clear();
-  localStorage.setItem('name', name.value);
+  localStorage.setItem('firstName', firstName.value);
   localStorage.setItem('lastName', lastName.value);
 }
 
@@ -452,7 +452,7 @@ data.forEach(element => {
 */
 async function AsyncFetch(){
 
-const response = await fetch('https://testapi.io/api/SurkusAPI/resource/Users/')
+const response = await fetch('https://localhost:7145/api/user')
 const users = await response.json();
 
 return users;
