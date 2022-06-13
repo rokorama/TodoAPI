@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TodoApi.Contexts;
 using TodoApi.Models;
 
@@ -25,7 +26,16 @@ public class TodoTaskRepository : ITodoTaskRepository
     public TodoTask PostTask(TodoTaskDto taskDto)
     {
         var newEntry = DtoToEntityMapper.MapDtoToEntity(taskDto);
-        _todoTaskContext.TodoTasks.Add(newEntry);
+        var parentUser = _todoTaskContext.Users.Where(u => u.Id == taskDto.UserId).First();    
+
+        if (parentUser.Tasks == null)
+        {
+            parentUser.Tasks = new List<TodoTask>();
+        }
+        parentUser.Tasks.Add(newEntry);
+        // _todoTaskContext.Entry(taskDto.UserId).CurrentValues.SetValues(parentUser);
+
+        // _todoTaskContext.Entry(parentUser).State = EntityState.Modified;
         _todoTaskContext.SaveChanges();
         return newEntry;
     }

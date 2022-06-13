@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TodoApi.Contexts;
 
@@ -11,9 +12,10 @@ using TodoApi.Contexts;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoTaskContext))]
-    partial class TodoTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20220613180147_Add-UserId")]
+    partial class AddUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace TodoApi.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -72,11 +74,12 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("TodoApi.Models.TodoTask", b =>
                 {
-                    b.HasOne("TodoApi.Models.User", null)
+                    b.HasOne("TodoApi.Models.User", "User")
                         .WithMany("Tasks")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TodoApi.Models.User", b =>

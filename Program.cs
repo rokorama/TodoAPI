@@ -9,6 +9,9 @@ string connString = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddDbContext<TodoTaskContext>(opt => opt.UseSqlServer(connString));
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddMvc().AddNewtonsoftJson(options=> 
+         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
